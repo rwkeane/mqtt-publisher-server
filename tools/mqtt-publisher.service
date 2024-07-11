@@ -1,0 +1,13 @@
+[Unit]
+Description=Runs a gRPC server for sending mqtt commands asynchronously.
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=python /home/user/src/mqtt-publisher/server_main.py /home/user/src/mqtt-publisher/tools/example_input.txt
+Restart=on-failure
+RestartSec=30
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

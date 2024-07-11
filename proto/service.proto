@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+// Define the service and its RPC method
+service SatelliteService {
+  rpc SendStatusUpdate (StatusMessage) returns (StatusResponse) {}
+}
+
+// Define the message structure
+message StatusMessage {
+  string client_name = 1;
+  string command_name = 2;
+  string content = 3;
+}
+
+message StatusResponse {}
