@@ -10,8 +10,8 @@ satellite_dir="$1"
 mqtt_client_script="$2"
 
 # Change directory to the provided file path
-cd "$(dirname "$satellite_dir")" || { 
-  echo "Error: Could not change directory to '$(dirname "$satellite_dir")'" >&2
+cd "$satellite_dir" || { 
+  echo "Error: Could not change directory to '$satellite_dir'" >&2
   exit 1
 }
 
@@ -39,7 +39,7 @@ fi
 echo "Starting with wyoming-satellite at '$satellite_dir' and client script at '$mqtt_client_script' for name '$name':"
 
 # Execute foo.sh with the remaining arguments
-./client_main.sh ${@:3} \
+./scripts/run "${@:3}" \
     --startup-command "python $mqtt_client_script '$name' startup" \
     --detect-command "python $mqtt_client_script '$name' detect" \
     --streaming-start-command "python $mqtt_client_script '$name' streaming-start" \

@@ -25,6 +25,7 @@ class ServiceImpl(SatelliteServiceServicer):
         self.SendMqttMessage(request.client_name,
                              request.command_name,
                              request.content)
+        return StatusResponse()
 
     # MQTT handling
     def SendMqttMessage(self, client_name, command_name, request_content):
