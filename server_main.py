@@ -7,6 +7,6 @@ if __name__ == "__main__":
 
     filepath = sys.argv[1]
 
-    username, password = parse(filepath)
-    server = ServiceImpl(username, password)
+    username, password, ip = parse(filepath)
+    server = ServiceImpl(username, password, ip)
     serve(server)

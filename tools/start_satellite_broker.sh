@@ -2,7 +2,7 @@
 
 # Check if a file path is provided as an argument
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 <file_path> [arguments for foo.sh]"
+  echo "Usage: $0 <wyoming-satellite dir> <mqtt-client-script-path> [arguments for wyoming satellite init script]"
   exit 1
 fi
 
@@ -28,7 +28,7 @@ done
 
 if [[ $name_index -gt 0 ]]; then
   # Extract the name (argument after --name)
-  name="${$((name_index + 1))}" 
+  name="${@:$((name_index + 1)):1}"
 fi
 
 if [[ -z "$name" ]]; then
@@ -36,8 +36,10 @@ if [[ -z "$name" ]]; then
   exit 1
 fi
 
+echo "Starting with wyoming-satellite at '$satellite_dir' and client script at '$mqtt_client_script' for name '$name':"
+
 # Execute foo.sh with the remaining arguments
-./client_main.sh "${@:3}" \
+./client_main.sh ${@:3} \
     --startup-command "python $mqtt_client_script '$name' startup" \
     --detect-command "python $mqtt_client_script '$name' detect" \
     --streaming-start-command "python $mqtt_client_script '$name' streaming-start" \

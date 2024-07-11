@@ -10,11 +10,12 @@ from common.constants import *
 
 
 class ServiceImpl(SatelliteServiceServicer):
-    def __init__(self, username, password):
+    def __init__(self, username, password, ip):
+        print("Connecting to MQTT Broker on {0}...".format(ip))
         self.client_ = mqtt.Client()
         self.client_.on_connect = on_connect
         self.client_.username_pw_set(username, password)
-        self.client_.connect(MQTT_BROKER_IP)
+        self.client_.connect(ip)
         self.client_.loop_start()  # Start the MQTT network loop asynchronously.
 
         self.ip_ = getIP()
@@ -36,9 +37,9 @@ class ServiceImpl(SatelliteServiceServicer):
             "context": request_content
         }
 
-        print("Sending {2}.{0} for '{1}'".format(command_name, request_content, client_name))
+        # print("Sending {2}.{0} for '{1}'".format(command_name, request_content, client_name))
         self.client_.publish(topic, json.dumps(infos), qos = 2)
-        print("Sent!")
+        # print("Sent!")
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:

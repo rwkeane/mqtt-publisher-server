@@ -6,6 +6,7 @@ def parse(filepath : str):
 
     username = None
     password = None
+    ip = None
 
     with open(filepath, "r") as f:
         for line in f:
@@ -14,8 +15,10 @@ def parse(filepath : str):
                 username = value
             elif key == "password":
                 password = value
+            elif key == "ip":
+                ip = value
 
-    if username is None or password is None:
+    if username is None or password is None or ip is None:
         raise ValueError("Invalid input file.")
 
-    return username, password
+    return username, password, ip
